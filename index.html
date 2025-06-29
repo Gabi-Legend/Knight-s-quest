@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knight's Quest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="menu" class="fancy-border">
+    <div class="glow-effect"></div>
+    <div class="menu-decoration top-left-decoration"></div>
+    <div class="menu-decoration top-right-decoration"></div>
+    <div class="menu-decoration bottom-left-decoration"></div>
+    <div class="menu-decoration bottom-right-decoration"></div>
+    
+    <div class="menu-content">
+      <h1 class="game-title">Knight's Quest<span>Epic Adventure</span></h1>
+      
+      <div class="button-container">
+        <button id="startBtn">Start Adventure</button>
+        <button id="settingsBtn">Game Settings</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="settingsMenu" class="hidden fancy-border">
+    <h2>Game Settings</h2>
+    
+    <div class="settings-option">
+      <label>Game Volume:</label>
+      <input type="range" min="0" max="100" value="50" id="volumeSlider">
+    </div>
+    
+    <div class="settings-option">
+      <button id="musicToggleBtn">Music: ON</button>
+    </div>
+    
+    <div class="settings-option">
+      <label>Difficulty:</label>
+      <select id="difficultySelect" class="settings-select">
+        <option value="easy">Easy</option>
+        <option value="normal" selected>Normal</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+    
+    <button id="closeSettingsBtn">Save Settings</button>
+  </div>
+  
+  <div id="loadingScreen" class="hidden">
+    <h1>Embarking on Quest...</h1>
+    <div class="loader"></div>
+    <p>Prepare for adventure...</p>
+  </div>
+  
+  <canvas id="gameCanvas" style="display: none;"></canvas>
+  
+  <div id="gameOverScreen" style="display:none;">
+    <h1>Quest Failed</h1>
+    <p>Your journey has come to an end, brave knight.</p>
+    <p>Final Score: <span id="finalScore">0</span></p>
+    <button id="retryBtn">Try Again</button>
+  </div>
+
+  <button id="upgradesBtn" class="menu-btn">Hero Upgrades</button>
+  <button id="mapBtn" class="menu-btn map-btn hidden">Change Map</button>
+
+  <div id="upgradesMenu" class="hidden">
+    <h2>Knight Upgrades</h2>
+    
+    <div class="upgrade-item">
+      <h3>Weapon Mastery</h3>
+      <p>Enhance your weapon's damage</p>
+      <p>Current: +<span id="currentDamage">0</span> damage</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="damageBar" style="width: 10%;"></div>
+      </div>
+      <p>Cost: <span id="damageCost">100</span> gold</p>
+      <button id="damageUpgradeBtn">Forge Weapon</button>
+    </div>
+    
+    <div class="upgrade-item">
+      <h3>Royal Armor</h3>
+      <p>Strengthen your defenses</p>
+      <p>Current: +<span id="currentHealth">0</span>% max health</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="healthBar" style="width: 10%;"></div>
+      </div>
+      <p>Cost: <span id="healthCost">100</span> gold</p>
+      <button id="healthUpgradeBtn">Improve Armor</button>
+    </div>
+    
+    <div class="upgrade-item">
+      <h3>Combat Training</h3>
+      <p>Attack with greater speed</p>
+      <p>Current: <span id="currentAttackSpeed">0</span>% faster</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="attackSpeedBar" style="width: 10%;"></div>
+      </div>
+      <p>Cost: <span id="attackSpeedCost">150</span> gold</p>
+      <button id="attackSpeedUpgradeBtn">Train Skills</button>
+    </div>
+    
+    <p id="creditsDisplay">Royal Treasury: 0 gold</p>
+    <button id="closeUpgradesBtn">Return to Battle</button>
+  </div>
+
+  <div class="game-controls" id="gameControls">
+    <button class="game-btn" id="attackBtn">Attack</button>
+    <button class="game-btn" id="defendBtn">Defend</button>
+    <button class="game-btn" id="inventoryBtn">Inventory</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

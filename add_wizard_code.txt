@@ -1,0 +1,88 @@
+
+// Wizard monster definitions and spawn logic (to be added inside startGame or appropriate section)
+
+// Wizard stats
+const wizardStats = {
+  healthBase: 30,
+  damageBase: 8,
+  attackCooldown: 3000,
+  spawnInterval: 15000,
+  speed: 1.2
+};
+
+// Wizard animations
+const wizardAnimations = {
+  walk: {
+    frames: [],
+    currentFrame: 0,
+    frameCount: 7,
+    src: "images/Wizard/Wanderer Magician/Walk.png",
+    width: 128,
+    height: 128,
+    speed: 120
+  },
+  attack: {
+    frames: [],
+    currentFrame: 0,
+    frameCount: 7,
+    src: "images/Wizard/Wanderer Magician/Attack_1.png",
+    width: 128,
+    height: 128,
+    speed: 120
+  },
+  dead: {
+    frames: [],
+    currentFrame: 0,
+    frameCount: 4,
+    src: "images/Wizard/Wanderer Magician/Dead.png",
+    width: 128,
+    height: 128,
+    speed: 180
+  }
+};
+
+// Add wizard animations to loadAnimationFrames()
+Object.keys(wizardAnimations).forEach((key) => {
+  const anim = wizardAnimations[key];
+  const img = new Image();
+  img.src = anim.src;
+  img.onload = () => {
+    for (let i = 0; i < anim.frameCount; i++) {
+      const canvas = document.createElement("canvas");
+      canvas.width = anim.width;
+      canvas.height = anim.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, i * anim.width, 0, anim.width, anim.height, 0, 0, anim.width, anim.height);
+      anim.frames.push(canvas);
+    }
+  };
+});
+
+// Wizard spawn logic
+let lastWizardSpawnTime = 0;
+function spawnWizard() {
+  const x = Math.random() > 0.5 ? -128 : gameCanvas.width + 128;
+  const y = Math.random() * (gameCanvas.height - 128);
+  const wizard = {
+    x,
+    y,
+    type: 'wizard',
+    state: 'walk',
+    facingRight: x < gameCanvas.width / 2,
+    health: wizardStats.healthBase,
+    damage: wizardStats.damageBase,
+    lastAttackTime: 0,
+    deathTime: null
+  };
+  werewolves.push(wizard);
+  console.log("Wizard spawned at", x, y);
+}
+
+// Add in gameLoop after white werewolf spawn:
+const adjustedWizardSpawnInterval = Math.max(8000, wizardStats.spawnInterval - (level - 1) * 500);
+if (performance.now() - lastWizardSpawnTime > adjustedWizardSpawnInterval) {
+  spawnWizard();
+  lastWizardSpawnTime = performance.now();
+}
+
+// Handle wizard behavior in moveWerewolves() and draw logic (use wizardAnimations)
